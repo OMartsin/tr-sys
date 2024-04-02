@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "124",
+    "address": "124124",
+    "edrpou": "124124",
+    "ipn": "124124",
+    "iban": "124",
+    "bank": "124",
+    "mfo": "124",
+    "orders": [
+      {
+        "id": 1,
+        "name": "Київ-Рига",
+        "clientName": "124",
+        "price": 20000.0,
+        "departureDate": "2020-12-31T22:00:00.000+00:00",
+        "deliveries": [
+          {
+            "id": 1,
+            "trailerNumber": "WZ 12345",
+            "truckNumber": "1234",
+            "driverName": "Ivan Ivanov",
+            "deliveryLogs": []
+          }
+        ]
+      }
+    ]
+  }
+]
