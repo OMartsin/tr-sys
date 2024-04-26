@@ -2,16 +2,24 @@
 import { RouterView } from 'vue-router'
 import AdminHeader from './components/AdminHeader.vue';
 import AdminSidebar from './components/AdminSidebar.vue';
+import { hasLoaded } from './router';
+import { ref } from 'vue';
+
+// export const hasLoadedOnPageLoad = ref(false);
 
 </script>
 
 <template>
-  <div class="main-context-container">
+  <div class="main-context-container" v-if="!hasLoaded">
     <AdminSidebar />
     <div class="app-container">
       <AdminHeader />
       <RouterView />
     </div>
+  </div>
+  <div class="loading-context-container" v-else>
+    <v-progress-circular indeterminate color="white" model-value="20" :size="128" :width="12"></v-progress-circular>  
+    <h2>Loading...</h2>
   </div>
 </template>
 
@@ -50,5 +58,17 @@ import AdminSidebar from './components/AdminSidebar.vue';
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+.loading-context-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: #211e4f;
+  color: white;
 }
 </style>

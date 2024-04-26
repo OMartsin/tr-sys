@@ -5,7 +5,8 @@ const menuItems = ref([
   { text: 'Dashboard', route: '/', icon: 'tachometer-alt'},
   { text: 'Clients', route: '/clients', icon: 'user' },
   { text: 'Drivers', route: '/drivers', icon: 'fa-truck' },
-  { text: 'Routes', route: '/routes', icon: 'route' },
+  { text: 'Trucks', route: '/trucks', icon: 'truck' },
+  { text: 'Trailers', route: '/trailers', icon: 'truck-loading' },
   { text: 'Orders', route: '/orders', icon: 'shopping-cart' },
   { text: 'Reports', route: '/reports', icon: 'chart-bar' },
 ]);
@@ -16,8 +17,7 @@ const menuItems = ref([
     <h2>Truck trailer</h2>
     <ul>
       <li v-for="item in menuItems" :key="item.text" class="link-row-container">
-        <font-awesome-icon :icon="['fas', item.icon ]" class="icon"/>
-        <router-link :to="item.route">{{ item.text }}</router-link>
+        <router-link :to="item.route"><font-awesome-icon :icon="['fas', item.icon ]" class="icon"/> {{ item.text }}</router-link>
       </li>
     </ul>
   </aside>

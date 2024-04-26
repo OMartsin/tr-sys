@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
-import type { Client } from '../types';
-import { useRouter } from 'vue-router';
+import type { Transport } from '../types';
+import router from '../router';
 
-const { client } = defineProps<{
-  client: Client;
+
+const { transport, isTrailer, editTransportProp, deleteTransportProp } = defineProps<{
+  transport: Transport;
+  isTrailer: boolean;
+  editTransportProp: (id: number) => void;
+  deleteTransportProp: (id: number) => void;
 }>();
 
-const router = useRouter();
 
-const emit = defineEmits(['edit', 'delete', 'details']);
-
-const editClient = (id: number) => {
-  // Emit edit event with id
-  emit('edit', id);
+const editTransport = (id: number) => {
+  editTransportProp(id);
 };
 
-const deleteClient = (id: number) => {
-  // Emit delete event with id
-  emit('delete', id);
+const deleteTransport = (id: number) => {
+  deleteTransportProp(id);
 };
 
 const goToDetails = (id: number) => {
-  router.push(`/client/${id}`);
+  isTrailer ? router.push(`/trailer/${id}`) : router.push(`/truck/${id}`);
 };
 </script>
 
@@ -31,14 +30,14 @@ const goToDetails = (id: number) => {
     <div class="client-info">
       <img src="/src/assets/avatar.svg" class="user-avatar" alt="User Avatar" />
       <div class="client-details">
-        <h3 @click="goToDetails(client.id)">{{ client.name }}</h3>
-        <p>EDRPOU: {{ client.edrpou }}</p>
-        <p>Account Number: {{ client.iban }}</p>
+        <h3 @click="goToDetails(transport.id)">{{ transport.brand + " " + transport.model }}</h3>
+        <p>Registation number: {{ transport.registrationNumber }}</p>
+        <p>weight: {{ transport.weight }}</p>
       </div>
     </div>
     <div class="client-actions">
-      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editClient(client.id)" />
-      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteClient(client.id)" />
+      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editTransport(transport.id)" />
+      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteTransport(transport.id)" />
     </div>
   </div>
 </template>

@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
-import type { Client } from '../types';
+import type { Order, OrderForDetails } from '../types';
 import { useRouter } from 'vue-router';
 
-const { client } = defineProps<{
-  client: Client;
+
+const { order } = defineProps<{
+  order: Order;
 }>();
 
 const router = useRouter();
 
 const emit = defineEmits(['edit', 'delete', 'details']);
 
-const editClient = (id: number) => {
-  // Emit edit event with id
-  emit('edit', id);
+const editOrder = (order: Order) => {
+  emit('edit', order);
 };
 
-const deleteClient = (id: number) => {
-  // Emit delete event with id
+const deleteOrder = (id: number) => {
   emit('delete', id);
 };
 
 const goToDetails = (id: number) => {
-  router.push(`/client/${id}`);
+  router.push(`/order/${id}`);
 };
 </script>
 
@@ -31,14 +30,14 @@ const goToDetails = (id: number) => {
     <div class="client-info">
       <img src="/src/assets/avatar.svg" class="user-avatar" alt="User Avatar" />
       <div class="client-details">
-        <h3 @click="goToDetails(client.id)">{{ client.name }}</h3>
-        <p>EDRPOU: {{ client.edrpou }}</p>
-        <p>Account Number: {{ client.iban }}</p>
+        <h3 @click="goToDetails(order.id)">{{ order.name }}</h3>
+        <p>Price: {{ order.price }}</p>
+        <p>Departure date: {{ order.departureDate.toLocaleDateString() }}</p>
       </div>
     </div>
     <div class="client-actions">
-      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editClient(client.id)" />
-      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteClient(client.id)" />
+      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editOrder(order)" />
+      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteOrder(order.id)" />
     </div>
   </div>
 </template>

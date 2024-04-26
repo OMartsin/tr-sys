@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-import type { Client } from '../types';
-import { useRouter } from 'vue-router';
+import { defineProps } from 'vue';
+import type { Driver } from '../types';
+import router from '../router';
 
-const { client } = defineProps<{
-  client: Client;
+
+const { driver, edit, deleteDriverProp } = defineProps<{
+  driver: Driver;
+  edit: (driver: Driver) => void;
+  deleteDriverProp: (id: number) => void;
 }>();
 
-const router = useRouter();
-
-const emit = defineEmits(['edit', 'delete', 'details']);
-
-const editClient = (id: number) => {
-  // Emit edit event with id
-  emit('edit', id);
+const editDriver = (driver: Driver) => {
+  edit(driver);
 };
 
-const deleteClient = (id: number) => {
-  // Emit delete event with id
-  emit('delete', id);
+const deleteDriver = (id: number) => {
+  deleteDriverProp(id);
 };
 
 const goToDetails = (id: number) => {
-  router.push(`/client/${id}`);
+  router.push(`/driver/${id}`);
 };
 </script>
 
@@ -31,14 +28,14 @@ const goToDetails = (id: number) => {
     <div class="client-info">
       <img src="/src/assets/avatar.svg" class="user-avatar" alt="User Avatar" />
       <div class="client-details">
-        <h3 @click="goToDetails(client.id)">{{ client.name }}</h3>
-        <p>EDRPOU: {{ client.edrpou }}</p>
-        <p>Account Number: {{ client.iban }}</p>
+        <h3 @click="goToDetails(driver.id)">{{ driver.name + " " + driver.surname }}</h3>
+        <p>Nationality: {{ driver.nationality }}</p>
+        <p>Passport number: {{ driver.passportNumber }}</p>
       </div>
     </div>
     <div class="client-actions">
-      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editClient(client.id)" />
-      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteClient(client.id)" />
+      <font-awesome-icon :icon="['far', 'pen-to-square']" class="action-button" @click="editDriver(driver)" />
+      <font-awesome-icon :icon="['fas', 'trash']" class="action-button" @click="deleteDriver(driver.id)" />
     </div>
   </div>
 </template>
